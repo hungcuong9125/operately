@@ -1,0 +1,53 @@
+services:
+  app:
+    image: ghcr.io/hungcuong9125/operately:latest
+    restart: always
+    ports:
+      - "80:4000"
+      - "443:4001"
+    depends_on:
+      - db
+    environment:
+      - MIX_ENV=prod
+      - DB_HOST=db
+      - CERT_DB_DIR=/certs
+      - OPERATELY_HOST=${OPERATELY_HOST}
+      - OPERATELY_URL_SCHEME=${OPERATELY_URL_SCHEME:-https}
+      - OPERATELY_BLOB_TOKEN_SECRET_KEY=${OPERATELY_BLOB_TOKEN_SECRET_KEY}
+      - OPERATELY_INSTALLATION_ID=${OPERATELY_INSTALLATION_ID}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - SYSTEM_SETTINGS_ENCRYPTION_KEYS=${SYSTEM_SETTINGS_ENCRYPTION_KEYS}
+      - DATABASE_URL=${DATABASE_URL}
+      - ALLOW_LOGIN_WITH_EMAIL=${ALLOW_LOGIN_WITH_EMAIL:-yes}
+      - ALLOW_SIGNUP_WITH_EMAIL=${ALLOW_SIGNUP_WITH_EMAIL:-yes}
+      - OPERATELY_BEACON_ENABLED=${OPERATELY_BEACON_ENABLED:-true}
+      - CERT_DOMAIN=${CERT_DOMAIN}
+      - CERT_AUTO_RENEW=${CERT_AUTO_RENEW:-yes}
+      - CERT_EMAILS=${CERT_EMAILS}
+    volumes:
+      - media:/media
+      - certs:/certs
+    healthcheck:
+      test: "curl -f http://localhost:4000/health || exit 1"
+      interval: 5s
+      timeout: 10s
+      retries: 10
+
+  db:
+    image: postgres:14.5
+    restart: always
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: operately-prod
+      POSTGRES_USER: operately
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
+    driver: local
+  media:
+    driver: local
+  certs:
+    driver: local
