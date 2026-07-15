@@ -11,7 +11,7 @@ services:
       - CERT_DOMAIN=${OPERATELY_HOST}
       - CERT_EMAILS=admin@${OPERATELY_HOST}
       - CERT_AUTO_RENEW=no
-      - CERT_DB_DIR=/certs
+      - CERT_DB_DIR=/tmp/certs
       - OPERATELY_URL_SCHEME=${OPERATELY_URL_SCHEME:-https}
       - OPERATELY_BLOB_TOKEN_SECRET_KEY=${OPERATELY_BLOB_TOKEN_SECRET_KEY}
       - OPERATELY_INSTALLATION_ID=${OPERATELY_INSTALLATION_ID}
@@ -23,7 +23,6 @@ services:
       - OPERATELY_BEACON_ENABLED=${OPERATELY_BEACON_ENABLED:-true}
     volumes:
       - media:/media
-      - certs:/certs
     healthcheck:
       test: "curl -f http://localhost:4000/health || exit 1"
       interval: 5s
@@ -45,6 +44,4 @@ volumes:
   postgres-data:
     driver: local
   media:
-    driver: local
-  certs:
     driver: local
