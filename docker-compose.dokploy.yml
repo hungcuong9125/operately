@@ -8,8 +8,8 @@ services:
       - MIX_ENV=prod
       - DB_HOST=db
       - OPERATELY_HOST=${OPERATELY_HOST}
-      - CERT_DOMAIN=${CERT_DOMAIN}
-      - CERT_EMAILS=${CERT_EMAILS:-admin@example.com}
+      - CERT_DOMAIN=${OPERATELY_HOST}
+      - CERT_EMAILS=admin@${OPERATELY_HOST}
       - CERT_AUTO_RENEW=no
       - CERT_DB_DIR=/certs
       - OPERATELY_URL_SCHEME=${OPERATELY_URL_SCHEME:-https}
