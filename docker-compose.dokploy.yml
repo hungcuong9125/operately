@@ -30,7 +30,7 @@ services:
     restart: always
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
-      POSTGRES_DB: operately-prod
+      POSTGRES_DB: operately
       POSTGRES_USER: operately
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
