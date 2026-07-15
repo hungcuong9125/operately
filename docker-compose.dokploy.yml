@@ -2,15 +2,11 @@ services:
   app:
     image: ghcr.io/hungcuong9125/operately:latest
     restart: always
-    ports:
-      - "80:4000"
-      - "443:4001"
     depends_on:
       - db
     environment:
       - MIX_ENV=prod
       - DB_HOST=db
-      - CERT_DB_DIR=/certs
       - OPERATELY_HOST=${OPERATELY_HOST}
       - OPERATELY_URL_SCHEME=${OPERATELY_URL_SCHEME:-https}
       - OPERATELY_BLOB_TOKEN_SECRET_KEY=${OPERATELY_BLOB_TOKEN_SECRET_KEY}
@@ -21,12 +17,8 @@ services:
       - ALLOW_LOGIN_WITH_EMAIL=${ALLOW_LOGIN_WITH_EMAIL:-yes}
       - ALLOW_SIGNUP_WITH_EMAIL=${ALLOW_SIGNUP_WITH_EMAIL:-yes}
       - OPERATELY_BEACON_ENABLED=${OPERATELY_BEACON_ENABLED:-true}
-      - CERT_DOMAIN=${CERT_DOMAIN}
-      - CERT_AUTO_RENEW=${CERT_AUTO_RENEW:-yes}
-      - CERT_EMAILS=${CERT_EMAILS}
     volumes:
       - media:/media
-      - certs:/certs
     healthcheck:
       test: "curl -f http://localhost:4000/health || exit 1"
       interval: 5s
@@ -48,6 +40,4 @@ volumes:
   postgres-data:
     driver: local
   media:
-    driver: local
-  certs:
     driver: local
