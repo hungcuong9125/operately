@@ -81,8 +81,6 @@ WORKDIR /src
 
 COPY app/config/config.exs app/config/${MIX_ENV}.exs app/config/
 
-RUN mix deps.compile
-
 COPY app/priv app/priv
 COPY app/assets app/assets
 COPY app/lib app/lib
@@ -98,6 +96,8 @@ WORKDIR /src/app
 RUN mkdir -p priv/rel/single-host/templates/operately_cmds && \
     cp rel/single-host/templates/operately.eex priv/rel/single-host/templates/ && \
     cp rel/single-host/templates/operately_cmds/*.eex priv/rel/single-host/templates/operately_cmds/
+
+RUN mix deps.compile
 
 RUN --mount=type=cache,target=/root/.npm npm ci
 RUN npm run build
