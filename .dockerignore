@@ -46,3 +46,17 @@ erl_crash.dump
 
 # Secrets
 .env
+.env.*
+
+# Dev tooling
+/turboui/storybook-static/
+/turboui/node_modules/
+/app/screenshots/
+/app/testreports/
+/.agent/
+/.agents/
+/.semaphore/
+/scripts/
+/docs/
+/docker/
+/.github/copilot-instructions.md
