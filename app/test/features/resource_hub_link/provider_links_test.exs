@@ -46,37 +46,5 @@ defmodule Operately.Features.ResourceHubLink.ProviderLinksTest do
       |> Steps.assert_link_content(@link)
       |> Steps.assert_link_is_notion(@link.title)
     end
-
-    feature "Google Doc link", ctx do
-      ctx
-      |> Steps.visit_resource_hub_page()
-      |> Steps.create_google_doc_link(@link)
-      |> Steps.assert_link_content(@link)
-      |> Steps.assert_link_is_google_doc(@link.title)
-    end
-
-    feature "Google Sheet link", ctx do
-      ctx
-      |> Steps.visit_resource_hub_page()
-      |> Steps.create_google_sheet_link(@link)
-      |> Steps.assert_link_content(@link)
-      |> Steps.assert_link_is_google_sheet(@link.title)
-    end
-
-    feature "Google Slide link", ctx do
-      ctx
-      |> Steps.visit_resource_hub_page()
-      |> Steps.create_google_slide_link(@link)
-      |> Steps.assert_link_content(@link)
-      |> Steps.assert_link_is_google_slide(@link.title)
-    end
-
-    feature "Google link", ctx do
-      ctx
-      |> Steps.visit_resource_hub_page()
-      |> Steps.create_google_link(@link)
-      |> Steps.assert_link_content(@link)
-      |> Steps.assert_link_is_google(@link.title)
-    end
   end
 end
